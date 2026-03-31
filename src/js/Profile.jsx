@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { useTranslation } from '../hooks/useTranslation';
 import { fetchMe, updateMe, getTelegramLinkToken, unlinkTelegram, getUser, saveUser } from '../api';
 
-const BASE_URL = "https://salonpro.pythonanywhere.com/api";
+const BASE_URL = "https://salonpro.pythonanywhere.com";
 
 // Services are now custom-input by master
 const DAYS_UZ = ["Du","Se","Ch","Pa","Ju","Sh","Ya"];
@@ -384,7 +384,7 @@ function AvatarUpload({ avatarUrl, onAvatarChange, lang, notify }) {
       const formData = new FormData();
       formData.append("avatar", file);
 
-      const res = await fetch(`${BASE_URL}/me/avatar/`, {
+      const res = await fetch(`${BASE_URL}/api/me/avatar/`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
