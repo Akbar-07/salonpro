@@ -494,7 +494,7 @@ export default function Home() {
   const fetchBusySlots = React.useCallback((master, date, showLoading = false) => {
     if (!master || !date) { setBusySlots([]); return; }
     if (showLoading) setLoadingSlots(true);
-    const BASE_URL = "http://localhost:8000/api";
+    const BASE = "https://salonpro.pythonanywhere.com/api";
     const langVal = localStorage.getItem("lang") || "uz";
     fetch(`${BASE_URL}/bookings/busy/?master_id=${master.id}&date=${date}`, {
       headers: { "Accept-Language": langVal }

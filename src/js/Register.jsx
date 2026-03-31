@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import { useTranslation } from "../hooks/useTranslation";
 import { register, apiFetch } from "../api";
 
-const BASE = "http://localhost:8000/api";
+const BASE = "https://salonpro.pythonanywhere.com/api";
 
 export default function Register() {
   const [step,     setStep]     = useState("register"); // register | otp

@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import { useTranslation } from '../hooks/useTranslation';
 import { fetchMe, updateMe, getTelegramLinkToken, unlinkTelegram, getUser, saveUser } from '../api';
 
-const BASE_URL = "http://localhost:8000";
+const BASE = "https://salonpro.pythonanywhere.com/api";
 
 // Services are now custom-input by master
 const DAYS_UZ = ["Du","Se","Ch","Pa","Ju","Sh","Ya"];

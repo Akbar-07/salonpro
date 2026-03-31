@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import { useTranslation } from "../hooks/useTranslation";
 import { login, fetchMe, apiFetch } from "../api";
 
-const BASE = "http://localhost:8000/api";
+const BASE = "https://salonpro.pythonanywhere.com/api";
 
 export default function Login() {
   const [step,     setStep]     = useState("login"); // login | forgot | forgot_otp | forgot_pass
