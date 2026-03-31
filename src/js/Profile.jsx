@@ -384,7 +384,7 @@ function AvatarUpload({ avatarUrl, onAvatarChange, lang, notify }) {
       const formData = new FormData();
       formData.append("avatar", file);
 
-      const res = await fetch(`${BASE_URL}/api/me/avatar/`, {
+      const res = await fetch(`${BASE_URL}/me/avatar/`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
