@@ -1,0 +1,735 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap");
+
+:root {
+  --primary:      #E8B4D9;
+  --primary-dark: #D89AC7;
+  --primary-light:#F5D9ED;
+  --accent:       #B8A4E8;
+  --accent-light: #D4C9F0;
+  --cream:        #FFF8F5;
+  --warm-white:   #FFFFFF;
+  --ink:          #2D1B2E;
+  --ink-mid:      #5C4557;
+  --ink-light:    #8B7788;
+  --border:       rgba(232, 180, 217, 0.2);
+  --shadow-sm:    0 2px 16px rgba(232, 180, 217, 0.12);
+  --shadow-md:    0 8px 32px rgba(232, 180, 217, 0.18);
+  --shadow-lg:    0 16px 48px rgba(232, 180, 217, 0.25);
+  --grad-primary: linear-gradient(135deg, #E8B4D9 0%, #D4C9F0 100%);
+  --grad-soft:    linear-gradient(135deg, #FFF8F5 0%, #F5D9ED 100%);
+  --grad-hero:    linear-gradient(160deg, #FFFFFF 0%, #FFF8F5 40%, #F5D9ED 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ─── PAGE BACKGROUND & HERO ───────────────────────────────────────── */
+
+.mainContent {
+  background: var(--grad-hero);
+  min-height: 100vh;
+  padding: 80px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mainContent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
+  animation: fadeUp 0.7s ease both;
+}
+
+.pageTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 72px;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 18px;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.pageSubtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  letter-spacing: 0.3px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─── MAIN CARDS ───────────────────────────────────────────────────── */
+
+.mainView {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.mainCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  margin-top: 60px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+.mainCard {
+  background: var(--warm-white);
+  padding: 48px 40px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mainCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grad-primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mainCard:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+.mainCard:hover::before {
+  opacity: 1;
+}
+
+.mainCardIcon {
+  font-size: 80px;
+  margin-bottom: 28px;
+  color: var(--primary);
+  transition: transform 0.3s;
+  display: block;
+}
+
+.mainCard:hover .mainCardIcon {
+  transform: scale(1.1) rotateZ(5deg);
+}
+
+.mainCardTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 20px;
+  letter-spacing: -0.3px;
+}
+
+.mainCardCount {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 64px;
+  font-weight: 600;
+  margin: 24px 0;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.mainCardDesc {
+  color: var(--ink-light);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.2px;
+}
+
+/* ─── DETAIL VIEWS ─────────────────────────────────────────────────── */
+
+.detailView {
+  position: relative;
+  z-index: 2;
+  max-width: 1360px;
+  margin: 0 auto;
+  animation: fadeUp 0.5s ease both;
+  display: none !important;
+}
+
+.detailView.active {
+  display: block !important;
+}
+
+.mainView.active {
+  display: block;
+}
+
+.backBtn {
+  background: var(--warm-white);
+  color: var(--primary);
+  padding: 13px 28px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-bottom: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.backBtn:hover {
+  background: var(--grad-soft);
+  border-color: var(--primary);
+  transform: translateX(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.backBtn i {
+  font-size: 14px;
+}
+
+.sectionTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 50px;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sectionTitle i {
+  color: var(--primary);
+  font-size: 44px;
+}
+
+/* ─── CLIENTS GRID ─────────────────────────────────────────────────── */
+
+.clientsGrid {
+  display: grid;
+  gap: 28px;
+}
+
+.clientCard {
+  background: var(--warm-white);
+  padding: 40px 32px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.clientCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grad-primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.clientCard:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+.clientCard:hover::before {
+  opacity: 1;
+}
+
+.clientHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  gap: 20px;
+}
+
+.clientName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: -0.2px;
+}
+
+.clientName i {
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.clientInfo {
+  color: var(--ink-light);
+  font-size: 15px;
+  font-weight: 500;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.2px;
+}
+
+.clientInfo i {
+  color: var(--accent);
+  width: 16px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.clientPrice {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 32px;
+  font-weight: 600;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  /* -webkit-text-fill-color: transparent; */
+  background-clip: text;
+  white-space: nowrap;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.clientActions {
+  display: flex;
+  gap: 14px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 130px;
+  font-family: "DM Sans", sans-serif;
+}
+
+.btn i {
+  font-size: 13px;
+}
+
+.btnEdit {
+  background: var(--grad-primary);
+  color: white;
+  box-shadow: 0 6px 20px rgba(232, 180, 217, 0.3);
+}
+
+.btnEdit:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232, 180, 217, 0.4);
+}
+
+.btnDelete {
+  background: rgba(232, 180, 217, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(232, 180, 217, 0.3);
+}
+
+.btnDelete:hover {
+  background: rgba(232, 180, 217, 0.2);
+  border-color: var(--primary);
+}
+
+.btnConfirm {
+  background: var(--grad-primary);
+  color: white;
+  box-shadow: 0 6px 20px rgba(232, 180, 217, 0.3);
+}
+
+.btnConfirm:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btnCancel {
+  background: rgba(232, 180, 217, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(232, 180, 217, 0.3);
+}
+
+.btnCancel:hover {
+  background: rgba(232, 180, 217, 0.2);
+  border-color: var(--primary);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--warm-white);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyStateIcon {
+  font-size: 80px;
+  margin-bottom: 28px;
+  opacity: 0.4;
+}
+
+.emptyStateText {
+  color: var(--ink-light);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+/* ─── MODAL ────────────────────────────────────────────────────────── */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(232, 180, 217, 0.15);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  background: var(--warm-white);
+  border-radius: 20px;
+  max-width: 620px;
+  width: 92%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modalTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 32px;
+  font-weight: 500;
+  margin-bottom: 32px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.3px;
+  padding: 40px 40px 0;
+  text-align: center;
+  justify-content: center;
+}
+
+.modalTitle i {
+  color: var(--primary);
+  font-size: 28px;
+}
+
+.formGroup {
+  padding: 0 40px;
+  margin-bottom: 26px;
+}
+
+.formGroup:first-of-type {
+  padding-top: 32px;
+}
+
+.formGroup label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+
+.formGroup label i {
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--cream);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  appearance: none;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(232, 180, 217, 0.15);
+  background: white;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.priceEditSection {
+  background: var(--grad-soft);
+  padding: 24px 40px;
+  margin: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.priceEditSection .formGroup {
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.priceEditSection .formGroup:last-child {
+  margin-bottom: 0;
+}
+
+.modalActions {
+  display: flex;
+  gap: 14px;
+  padding: 32px 40px;
+  border-top: 1px solid var(--border);
+}
+
+.btnSave {
+  background: var(--grad-primary);
+  color: white;
+  flex: 1;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(232, 180, 217, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btnSave:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232, 180, 217, 0.4);
+}
+
+.btnClose {
+  background: transparent;
+  color: var(--ink-mid);
+  flex: 1;
+  padding: 13px 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btnClose:hover {
+  background: var(--grad-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* ─── ANIMATIONS ───────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 60px 24px;
+  }
+
+  .pageTitle {
+    font-size: 44px;
+    margin-bottom: 16px;
+  }
+
+  .pageSubtitle {
+    font-size: 14px;
+  }
+
+  .pageHeader {
+    margin-bottom: 50px;
+  }
+
+  .mainCards {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .mainCard {
+    padding: 36px 28px;
+  }
+
+  .mainCardIcon {
+    font-size: 60px;
+    margin-bottom: 20px;
+  }
+
+  .mainCardTitle {
+    font-size: 22px;
+  }
+
+  .mainCardCount {
+    font-size: 48px;
+    margin: 18px 0;
+  }
+
+  .sectionTitle {
+    font-size: 34px;
+    margin-bottom: 36px;
+  }
+
+  .sectionTitle i {
+    font-size: 36px;
+  }
+
+  .clientCard {
+    padding: 28px 24px;
+  }
+
+  .clientHeader {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .clientPrice {
+    font-size: 26px;
+  }
+
+  .clientActions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .modalContent {
+    width: 96%;
+  }
+
+  .modalTitle {
+    font-size: 26px;
+    padding: 32px 28px 0;
+  }
+
+  .formGroup {
+    padding: 0 28px;
+  }
+
+  .formGroup:first-of-type {
+    padding-top: 24px;
+  }
+
+  .priceEditSection {
+    padding: 20px 28px;
+  }
+
+  .modalActions {
+    padding: 24px 28px;
+    gap: 12px;
+  }
+}

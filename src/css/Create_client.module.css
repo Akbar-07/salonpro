@@ -1,0 +1,385 @@
+/* Create_client.css */
+
+/* Main Content */
+.mainContent {
+    padding: 50px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.pageHeader {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeInDown 0.6s;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pageTitle {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #2D1B2E;
+    margin-bottom: 18px;
+    text-shadow: 0 4px 30px rgba(232, 180, 217, 0.2);
+    letter-spacing: -1px;
+}
+
+.pageSubtitle {
+    color: #5C4557;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* Form */
+.formContainer {
+    background: #FFFFFF;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 16px 48px rgba(232, 180, 217, 0.25);
+    animation: fadeInUp 0.6s;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 180, 217, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.formGroup {
+    margin-bottom: 30px;
+}
+
+.formGroup.fullWidth {
+    grid-column: 1 / -1;
+}
+
+.formGroup label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #2D1B2E;
+    font-size: 15px;
+}
+
+.formGroup label i {
+    font-size: 18px;
+    color: #E8B4D9;
+}
+
+.formGroup input,
+.formGroup select {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid rgba(232, 180, 217, 0.2);
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: 'DM Sans', sans-serif;
+    background: #FFF8F5;
+    color: #2D1B2E;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+    outline: none;
+    border-color: #E8B4D9;
+    box-shadow: 0 0 0 4px rgba(232, 180, 217, 0.15);
+    transform: translateY(-2px);
+}
+
+.priceSection {
+    background: linear-gradient(135deg, #FFF8F5 0%, #F5D9ED 100%);
+    padding: 25px;
+    border-radius: 16px;
+    border: 2px solid rgba(232, 180, 217, 0.2);
+    margin-bottom: 30px;
+}
+
+.priceHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.priceHeader label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2D1B2E;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.priceTypeToggle {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 2px 8px rgba(232, 180, 217, 0.15);
+}
+
+.priceTypeBtn {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8B7788;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.priceTypeBtn.active {
+    background: linear-gradient(135deg, #E8B4D9 0%, #D4C9F0 100%);
+    color: white;
+    box-shadow: 0 2px 8px rgba(232, 180, 217, 0.3);
+}
+
+.priceInputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.inputWithIcon {
+    position: relative;
+}
+
+.inputWithIcon input {
+    padding-right: 60px;
+}
+
+.inputIcon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8B7788;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.formButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn i {
+    font-size: 18px;
+    position: relative;
+    z-index: 1;
+}
+
+.btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.btnPrimary {
+    background: linear-gradient(135deg, #B8A4E8 0%, #D4C9F0 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(232, 180, 217, 0.4);
+}
+
+.btnPrimary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(232, 180, 217, 0.4);
+}
+
+.btnSecondary {
+    background: linear-gradient(135deg, #E8B4D9 0%, #D4C9F0 100%);
+    color: white;
+    box-shadow: 0 8px 25px rgba(232, 180, 217, 0.4);
+}
+
+.btnSecondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(232, 180, 217, 0.5);
+}
+
+.alert {
+    padding: 18px 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.alert i {
+    font-size: 20px;
+}
+
+.alert.show {
+    display: flex;
+    animation: slideDown 0.4s;
+}
+
+.alertError {
+    background: #FFEBEE;
+    color: #C62828;
+    border: 2px solid rgba(229, 115, 115, 0.3);
+}
+
+.alertSuccess {
+    background: #E8F5E9;
+    color: #2E7D32;
+    border: 2px solid rgba(102, 187, 106, 0.3);
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.occupiedTimesSection {
+    margin-top: 25px;
+    padding: 20px;
+    background: #FFEBEE;
+    border-radius: 12px;
+    border: 2px solid rgba(229, 115, 115, 0.3);
+}
+
+.occupiedTimesSection label {
+    color: #C62828;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.occupiedTimes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.timeBadge {
+    padding: 8px 16px;
+    background: white;
+    color: #C62828;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(232, 180, 217, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        display: none;
+    }
+
+    .mobileNavbar {
+        display: flex;
+    }
+
+    .pageTitle {
+        font-size: 36px;
+    }
+
+    .pageSubtitle {
+        font-size: 16px;
+    }
+
+    .formContainer {
+        padding: 30px 18px;
+    }
+
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .priceInputs {
+        grid-template-columns: 1fr;
+    }
+
+    .formButtons {
+        grid-template-columns: 1fr;
+    }
+
+    .priceTypeToggle {
+        flex-direction: column;
+    }
+}

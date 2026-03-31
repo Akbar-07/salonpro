@@ -1,0 +1,1087 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary:      #E8B4D9;
+  --primary-dark: #D89AC7;
+  --primary-light:#F5D9ED;
+  --accent:       #B8A4E8;
+  --accent-light: #D4C9F0;
+  --cream:        #FFF8F5;
+  --warm-white:   #FFFFFF;
+  --ink:          #2D1B2E;
+  --ink-mid:      #5C4557;
+  --ink-light:    #8B7788;
+  --border:       rgba(232, 180, 217, 0.2);
+  --shadow-sm:    0 2px 16px rgba(232, 180, 217, 0.12);
+  --shadow-md:    0 8px 32px rgba(232, 180, 217, 0.18);
+  --shadow-lg:    0 16px 48px rgba(232, 180, 217, 0.25);
+  --grad-primary: linear-gradient(135deg, #E8B4D9 0%, #D4C9F0 100%);
+  --grad-soft:    linear-gradient(135deg, #FFF8F5 0%, #F5D9ED 100%);
+  --grad-hero:    linear-gradient(160deg, #FFFFFF 0%, #FFF8F5 40%, #F5D9ED 100%);
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-weight: 500;
+}
+
+/* ─── HERO ─────────────────────────────────────────────────────────── */
+
+.hero {
+  background: var(--grad-hero);
+  padding: 110px 40px 130px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle grain overlay */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* rose arc bottom */
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--cream);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(232, 180, 217, 0.15);
+  border: 1px solid rgba(232, 180, 217, 0.3);
+  backdrop-filter: blur(8px);
+  padding: 8px 22px;
+  border-radius: 50px;
+  margin-bottom: 36px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.heroBadge i   { color: var(--accent); font-size: 14px; }
+.heroBadge span {
+  font-family: "DM Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.heroTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 72px;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 22px;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+
+.heroTitle em {
+  font-style: italic;
+  color: var(--primary);
+}
+
+.heroSubtitle {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  letter-spacing: 0.3px;
+  margin-bottom: 60px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+/* Hero Stats */
+.heroStats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 56px;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+
+.statItem {
+  text-align: center;
+  padding: 0 48px;
+}
+
+.statNumber {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 52px;
+  font-weight: 600;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-light);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.statDivider {
+  width: 1px;
+  height: 50px;
+  background: rgba(232, 180, 217, 0.25);
+  flex-shrink: 0;
+}
+
+/* Hero Buttons */
+.heroButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 52px;
+  animation: fadeUp 0.7s 0.35s ease both;
+}
+
+.heroBtn {
+  background: var(--grad-primary);
+  color: white;
+  padding: 16px 38px;
+  border: none;
+  border-radius: 12px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 28px rgba(232, 180, 217, 0.35);
+}
+
+.heroBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(232, 180, 217, 0.45);
+}
+
+.heroBtnSecondary {
+  background: transparent;
+  padding: 16px 38px;
+  border: 1px solid rgba(232, 180, 217, 0.4);
+  border-radius: 12px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.heroBtnSecondary:hover {
+  background: rgba(232, 180, 217, 0.1);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+/* Hero Features */
+.heroFeatures {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+
+.heroFeature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-light);
+  letter-spacing: 0.5px;
+}
+
+.heroFeature i { color: var(--accent); font-size: 12px; }
+
+/* Hero Decoration */
+.heroDecoration {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.decorIcon {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  opacity: 0.05;
+  transition: opacity 0.4s;
+}
+
+/* ─── CONTAINER ────────────────────────────────────────────────────── */
+
+.container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* ─── SECTION TITLE ────────────────────────────────────────────────── */
+
+.sectionTitle {
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 48px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.sectionTitle + p,
+.sectionSubtitle {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink-light);
+  margin-bottom: 52px;
+  letter-spacing: 0.3px;
+}
+
+/* divider accent under section titles */
+.sectionTitle::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--grad-primary);
+  margin: 18px auto 52px;
+  border-radius: 2px;
+}
+
+/* ─── SALON INFO ───────────────────────────────────────────────────── */
+
+.salonInfo {
+  background: var(--warm-white);
+  padding: 60px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  margin-bottom: 80px;
+}
+
+.salonInfo h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 34px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.salonInfo h3 i { color: var(--primary); font-size: 22px; }
+
+.salonInfo p {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink-mid);
+  line-height: 1.85;
+  margin-bottom: 18px;
+  max-width: 740px;
+}
+
+.salonFeatures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.featureItem {
+  background: var(--grad-soft);
+  padding: 20px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--border);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featureItem:hover { transform: translateY(-3px); }
+
+.featureItem i    { font-size: 22px; color: var(--primary); }
+.featureItem span { font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: 0.2px; }
+
+/* ─── MASTERS ──────────────────────────────────────────────────────── */
+
+.mastersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  margin-bottom: 80px;
+}
+
+.masterCard {
+  background: var(--warm-white);
+  padding: 40px 32px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.masterCard::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--grad-primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.masterCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.masterCard:hover::before { opacity: 1; }
+
+.masterPhoto {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--grad-soft);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+}
+
+.masterPhoto i { font-size: 44px; color: var(--primary); }
+
+.masterName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.masterSpecialty {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+
+.masterRating {
+  font-size: 13px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.masterExperience {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-light);
+  margin-bottom: 24px;
+  letter-spacing: 0.3px;
+}
+
+.bookMasterBtn {
+  background: transparent;
+  color: var(--primary);
+  padding: 10px 20px;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.bookMasterBtn:hover {
+  background: var(--grad-primary);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 6px 20px rgba(232, 180, 217, 0.3);
+}
+
+/* ─── SERVICES ─────────────────────────────────────────────────────── */
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+  margin-bottom: 80px;
+}
+
+.serviceCard {
+  background: var(--warm-white);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+  overflow: hidden;
+  position: relative;
+}
+
+.serviceCard::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--grad-primary);
+}
+
+.serviceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.serviceCard:hover .serviceIconWrapper {
+  transform: scale(1.08);
+}
+
+.serviceCardInner {
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.serviceIconWrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 26px;
+  background: var(--grad-soft);
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.serviceIcon {
+  width: 38px;
+  height: 38px;
+  color: var(--primary);
+}
+
+.serviceName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 12px;
+  letter-spacing: -0.2px;
+}
+
+.serviceDescription {
+  color: var(--ink-light);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.serviceFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+  text-align: left;
+}
+
+.serviceFeature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-mid);
+}
+
+.serviceFeature i { color: var(--primary); font-size: 12px; }
+
+.servicePriceWrapper {
+  background: var(--grad-soft);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+}
+
+.servicePrice {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 34px;
+  font-weight: 600;
+  background: var(--grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.servicePriceLabel {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.serviceBookBtn {
+  background: var(--grad-primary);
+  color: white;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(232, 180, 217, 0.3);
+}
+
+.serviceBookBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(232, 180, 217, 0.4);
+}
+
+.serviceBookBtn i { font-size: 13px; }
+
+/* ─── BOOKING ──────────────────────────────────────────────────────── */
+
+.bookingSection {
+  background: var(--warm-white);
+  padding: 64px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.bookingTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  letter-spacing: -0.3px;
+}
+
+.bookingTitle i { color: var(--primary); font-size: 24px; }
+
+.formGroup { margin-bottom: 26px; }
+
+.formGroup label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+}
+
+.formGroup label i { color: var(--primary); font-size: 13px; }
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--cream);
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  appearance: none;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(232, 180, 217, 0.15);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btnSubmit {
+  background: var(--grad-primary);
+  color: white;
+  width: 100%;
+  padding: 17px;
+  border: none;
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 28px rgba(232, 180, 217, 0.3);
+  margin-top: 12px;
+}
+
+.btnSubmit:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(232, 180, 217, 0.4);
+}
+
+/* ─── CONTACT ──────────────────────────────────────────────────────── */
+
+.contactSection {
+  background: var(--warm-white);
+  padding: 60px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  margin-top: 80px;
+}
+
+.contactTitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 34px;
+  font-weight: 400;
+  color: var(--ink);
+  text-align: center;
+  margin-bottom: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.contactTitle i { color: var(--primary); }
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.contactItem {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--grad-soft);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+}
+
+.contactItem:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.contactItem i       { font-size: 28px; color: var(--primary); margin-bottom: 14px; display: block; }
+.contactItem h4      { font-family: "Cormorant Garamond", serif; font-size: 18px; font-weight: 500; color: var(--ink); margin-bottom: 10px; }
+.contactItem p       { color: var(--ink-light); font-size: 15px; font-weight: 500; line-height: 1.7; }
+.contactItem a       { color: var(--primary); text-decoration: none; font-weight: 600; }
+.contactItem a:hover { text-decoration: underline; }
+
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
+
+.footer {
+  background: linear-gradient(160deg, #3D3349 0%, #4A3B58 50%, #5C4A6F 100%);
+  text-align: center;
+  padding: 32px 20px;
+  margin-top: 80px;
+}
+
+.footer p { font-size: 12px; color: rgba(255, 255, 255, 0.4); margin-bottom: 8px; }
+
+.socialLinks {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.socialLink {
+  width: 40px;
+  height: 40px;
+  background: rgba(232, 180, 217, 0.15);
+  border: 1px solid rgba(232, 180, 217, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-light);
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.socialLink:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* ─── MODAL ────────────────────────────────────────────────────────── */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(232, 180, 217, 0.2);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.active { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modalContent {
+  background: var(--warm-white);
+  border-radius: 20px;
+  max-width: 620px;
+  width: 92%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.modalClose {
+  position: absolute;
+  top: 18px; right: 18px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(232, 180, 217, 0.1);
+  border: none;
+  font-size: 16px;
+  color: var(--ink-mid);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modalClose:hover {
+  background: rgba(232, 180, 217, 0.2);
+  color: var(--primary);
+  transform: rotate(90deg);
+}
+
+.modalHeader {
+  background: var(--grad-hero);
+  padding: 52px 40px 40px;
+  text-align: center;
+  border-radius: 20px 20px 0 0;
+  color: var(--ink);
+  position: relative;
+}
+
+.modalMasterPhoto {
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: rgba(232, 180, 217, 0.15);
+  border: 2px solid rgba(232, 180, 217, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px;
+}
+
+.modalMasterPhoto i { font-size: 44px; color: var(--primary); }
+
+.modalMasterName {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.modalMasterSpecialty {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--ink-mid);
+  margin-bottom: 10px;
+}
+
+.modalMasterRating { font-size: 14px; color: var(--accent); }
+
+.modalBody { padding: 40px; }
+
+.modalSection {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modalSection:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.modalSection h4 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalSection h4 i { color: var(--primary); font-size: 16px; }
+
+.modalInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.modalInfoItem {
+  background: var(--grad-soft);
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-mid);
+}
+
+.modalInfoItem i { color: var(--primary); font-size: 16px; }
+
+.modalBio {
+  color: var(--ink-mid);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.85;
+}
+
+.modalServicesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.modalServiceItem {
+  background: var(--grad-soft);
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-mid);
+}
+
+.modalServiceItem i { color: var(--primary); font-size: 13px; }
+
+.modalWorkingTime { display: flex; flex-direction: column; gap: 14px; }
+
+.modalTimeInfo {
+  background: var(--grad-soft);
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.modalTimeInfo i { color: var(--primary); font-size: 16px; }
+
+.modalWorkingDays { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.modalDayBadge {
+  background: var(--grad-primary);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.modalBookBtn {
+  background: var(--grad-primary);
+  color: white;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-family: "DM Sans", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 24px rgba(232, 180, 217, 0.3);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.modalBookBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(232, 180, 217, 0.4);
+}
+
+.modalBookBtn i { font-size: 14px; }
+
+/* ─── ANIMATIONS ───────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero::after {height: 40px;}
+  .heroTitle   { font-size: 44px; }
+  .heroSubtitle { font-size: 14px; margin-bottom: 40px; }
+  .hero        { padding: 80px 24px 110px; }
+
+  .heroStats   { gap: 0; }
+  .statItem    { padding: 0 24px; }
+  .statNumber  { font-size: 36px; }
+  .statDivider { height: 40px; }
+
+  .heroButtons { flex-direction: column; max-width: 280px; margin: 0 auto 40px; }
+  .heroBtn, .heroBtnSecondary { width: 100%; justify-content: center; }
+
+  .heroFeatures { flex-direction: column; gap: 12px; align-items: center; }
+
+  .sectionTitle  { font-size: 34px; }
+  .salonInfo, .bookingSection, .contactSection { padding: 36px 28px; }
+  .mastersGrid, .servicesGrid { grid-template-columns: 1fr; }
+
+  .modalContent  { width: 96%; }
+  .modalHeader   { padding: 40px 24px 30px; }
+  .modalBody     { padding: 28px 22px; }
+  .modalInfoGrid, .modalServicesList { grid-template-columns: 1fr; }
+  .modalClose    { top: 12px; right: 12px; }
+}
