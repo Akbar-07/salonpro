@@ -155,41 +155,41 @@ export default function Dashboard() {
               <div className={styles.tableTitle}><i className="fas fa-table"></i>{t.dash_table_title} ({filtered.length})</div>
               <div className={styles.tableWrapper}>
                 <table>
-                  <thead>
-                    <tr>
-                      <th><i className="fas fa-user"></i> {t.dash_col_client}</th>
-                      <th><i className="fas fa-scissors"></i> {t.dash_col_service}</th>
-                      <th><i className="fas fa-calendar"></i> {t.dash_col_date}</th>
-                      <th><i className="fas fa-money-bill-wave"></i> {t.dash_col_total}</th>
-                      <th><i className="fas fa-wallet"></i> {t.dash_col_mine}</th>
-                      <th><i className="fas fa-building"></i> {t.dash_col_rent}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filtered.length === 0 ? (
-                      <tr><td colSpan={6} style={{textAlign:"center",padding:"30px",color:"#8B7788"}}>Ma'lumot topilmadi</td></tr>
-                    ) : filtered.map((c) => {
-                      const rent = Math.max((c.price||0) - (c.my_price||0), 0);
-                      const mPct = c.price > 0 ? ((c.my_price / c.price) * 100).toFixed(1) : "0.0";
-                      const rPct = c.price > 0 ? ((rent      / c.price) * 100).toFixed(1) : "0.0";
-                      return (
-                        <tr key={c.id}>
-                          <td><strong>{c.username}</strong></td>
-                          <td>{c.service}</td>
-                          <td>{c.date} {c.time}</td>
-                          <td className={styles.priceCell}>{fmt(c.price)} so'm</td>
-                          <td style={{color:"#B8A4E8",fontWeight:700}}>
-                            {fmt(c.my_price)} so'm
-                            <span style={{fontSize:"12px",color:"#8B7788"}}> ({mPct}%)</span>
-                          </td>
-                          <td style={{color:"#E8B4D9",fontWeight:700}}>
-                            {fmt(rent)} so'm
-                            <span style={{fontSize:"12px",color:"#8B7788"}}> ({rPct}%)</span>
-                          </td>
+                      <thead>
+                        <tr>
+                          <th><i className="fas fa-user"></i> {t.dash_col_client}</th>
+                          <th><i className="fas fa-scissors"></i> {t.dash_col_service}</th>
+                          <th><i className="fas fa-calendar"></i> {t.dash_col_date}</th>
+                          <th><i className="fas fa-money-bill-wave"></i> {t.dash_col_total}</th>
+                          <th><i className="fas fa-wallet"></i> {t.dash_col_mine}</th>
+                          <th><i className="fas fa-building"></i> {t.dash_col_rent}</th>
                         </tr>
-                      );
-                    })}
-                  </tbody>
+                      </thead>
+                      <tbody>
+                        {filtered.length === 0 ? (
+                          <tr><td colSpan={6} style={{textAlign:"center",padding:"30px",color:"#8B7788"}}>Ma'lumot topilmadi</td></tr>
+                        ) : filtered.map((c) => {
+                          const rent = Math.max((c.price||0) - (c.my_price||0), 0);
+                          const mPct = c.price > 0 ? ((c.my_price / c.price) * 100).toFixed(1) : "0.0";
+                          const rPct = c.price > 0 ? ((rent      / c.price) * 100).toFixed(1) : "0.0";
+                          return (
+                            <tr key={c.id}>
+                              <td data-label="Mijoz"><strong>{c.username}</strong></td>
+                              <td data-label="Xizmat">{c.service}</td>
+                              <td data-label="Sana">{c.date} {c.time}</td>
+                              <td data-label="Jami" className={styles.priceCell}>{fmt(c.price)} so'm</td>
+                              <td data-label="Mening ulushim" style={{color:"#B8A4E8",fontWeight:700}}>
+                                {fmt(c.my_price)} so'm
+                                <span style={{fontSize:"12px",color:"#8B7788"}}> ({mPct}%)</span>
+                              </td>
+                              <td data-label="Arenda" style={{color:"#E8B4D9",fontWeight:700}}>
+                                {fmt(rent)} so'm
+                                <span style={{fontSize:"12px",color:"#8B7788"}}> ({rPct}%)</span>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
                 </table>
               </div>
             </div>

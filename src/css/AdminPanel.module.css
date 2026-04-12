@@ -893,7 +893,11 @@
 @media (max-width: 600px) {
   .main        { padding: 20px 16px; }
   .pageTitle   { font-size: 26px; }
-  .statsGrid   { grid-template-columns: repeat(2, 1fr); }
+  .statsGrid   { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .statCard    { padding: 16px 12px; gap: 12px; }
+  .statIcon    { width: 42px; height: 42px; font-size: 16px; border-radius: 10px; flex-shrink: 0; }
+  .statLabel   { font-size: 10px; }
+  .statValue   { font-size: 20px; }
   .todayGrid   { grid-template-columns: repeat(2, 1fr); }
   .revGrid     { grid-template-columns: 1fr; }
   .userCards   { grid-template-columns: 1fr; }
@@ -902,4 +906,9 @@
   .modal       { max-height: 95vh; }
   .modalStats  { flex-direction: column; }
   .adminChip span { display: none; }
+}
+/* Extra small phones */
+@media (max-width: 380px) {
+  .statsGrid   { grid-template-columns: 1fr; }
+  .statCard    { padding: 14px 12px; }
 }

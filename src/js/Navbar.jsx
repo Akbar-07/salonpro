@@ -213,9 +213,17 @@ export default function Navbar({ version = "default" }) {
         )}
         {version === "masters" && (
           <div className="sidebar-menu">
+            <div className="sidebar-user-info" style={{display:"flex",alignItems:"center",gap:"12px",padding:"12px 16px",marginBottom:"8px",background:"rgba(232,180,217,0.1)",borderRadius:"12px",border:"1px solid rgba(232,180,217,0.2)"}}>
+              <NavAvatar user={user} displayName={displayName} size={40} />
+              <div>
+                <div style={{fontWeight:700,fontSize:"14px",color:"var(--ink)"}}>{displayName}</div>
+                <div style={{fontSize:"11px",color:"#8B7788"}}>Master</div>
+              </div>
+            </div>
             <Link to="/masters"       className={`menu-item ${isActive("/masters")?"active":""}`}       onClick={toggleSidebar}><i className="fas fa-home"></i><span>{t.navbar_home}</span></Link>
             <Link to="/create_client" className={`menu-item ${isActive("/create_client")?"active":""}`} onClick={toggleSidebar}><i className="fas fa-user-plus"></i>{t.navbar_add_client}</Link>
             <Link to="/dashboard"     className={`menu-item ${isActive("/dashboard")?"active":""}`}     onClick={toggleSidebar}><i className="fas fa-chart-line"></i>{t.navbar_income}</Link>
+            <Link to="/profile"       className={`menu-item ${isActive("/profile")?"active":""}`}       onClick={toggleSidebar}><i className="fas fa-cog"></i>{t.navbar_profile_settings}</Link>
             {user?.is_master_admin && (
               <Link to="/admin" className={`menu-item ${isActive("/admin")?"active":""}`} onClick={toggleSidebar}><i className="fas fa-shield-alt"></i>Admin Panel</Link>
             )}

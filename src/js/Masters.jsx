@@ -272,7 +272,7 @@ export default function Masters() {
 
               {/* Arendaga to'lov turi */}
               <div className={styles.formGroup}>
-                <label><i className="fas fa-store"></i>{t.masters_rent_type||"Arenda turi"}</label>
+                <label><i className="fas fa-store"></i>{t.masters_rent_type||"Mening ulushim"}</label>
                 <div style={{display:"flex",gap:"10px",marginBottom:"10px"}}>
                   {[{v:"som",lbl:"So'm (aniq)"},{v:"percent",lbl:"Foiz (%)"}].map(opt=>(
                     <button key={opt.v} type="button"

@@ -14,6 +14,9 @@ const DAY_LABELS = {
   "Sh": { uz: "Shanba",     ru: "Суббота"      },
   "Ya": { uz: "Yakshanba",  ru: "Воскресенье" },
 };
+
+const BASE_URL = "https://salonpro.pythonanywhere.com/api";
+
 // ─── CustomSelect (light theme — sayt ranglariga mos) ────────────────────────
 function CustomSelect({ value, onChange, options, placeholder, style }) {
   const [open, setOpen] = React.useState(false);

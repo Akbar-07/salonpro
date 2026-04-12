@@ -5,7 +5,7 @@ import Navbar from './Navbar';
 import { useTranslation } from '../hooks/useTranslation';
 import { createClient, fetchMasters, fetchMe, getUser } from '../api';
 
-const BASE = "https://salonpro.pythonanywhere.com/api";
+const BASE_URL = "https://salonpro.pythonanywhere.com/api";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const timeToMins = (t) => { const [h, m] = (t || "00:00").split(":").map(Number); return h * 60 + m; };

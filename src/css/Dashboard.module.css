@@ -540,24 +540,45 @@
         display: flex;
     }
 
+    .mainContent {
+        padding: 20px 14px;
+    }
+
+    .pageHeader {
+        margin-bottom: 28px;
+    }
+
     .pageTitle {
-        font-size: 36px;
+        font-size: 30px;
         flex-direction: column;
+        gap: 8px;
     }
 
     .pageSubtitle {
-        font-size: 16px;
+        font-size: 15px;
     }
 
     .todaySection,
     .breakdownCard,
-    .searchSection,
+    .searchSection {
+        padding: 20px 16px;
+    }
+
     .tableCard {
-        padding: 30px 25px;
+        padding: 18px 12px;
     }
 
     .statsGrid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .statCard {
+        padding: 24px 20px;
+    }
+
+    .statValue {
+        font-size: 36px;
     }
 
     .searchGrid {
@@ -565,18 +586,78 @@
     }
 
     .todayStats {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .todayStat {
+        padding: 16px 12px;
+    }
+
+    .todayStatValue {
+        font-size: 22px;
     }
 
     .breakdownLegend {
-        gap: 20px;
+        gap: 16px;
     }
 
+    .breakdownBar {
+        height: 64px;
+    }
+
+    .barSegment {
+        font-size: 18px;
+    }
+
+    /* Mobile: table rows → card style */
     .tableWrapper {
-        overflow-x: scroll;
+        overflow-x: visible;
     }
 
     .tableCard table {
-        min-width: 700px;
+        min-width: unset;
+    }
+
+    .tableCard thead {
+        display: none;
+    }
+
+    .tableCard tbody tr {
+        display: block;
+        background: #fff8f5;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        padding: 14px 16px;
+        border: 1px solid rgba(232, 180, 217, 0.2);
+        box-shadow: 0 4px 16px rgba(232, 180, 217, 0.12);
+    }
+
+    .tableCard tbody tr:hover {
+        background: #fff8f5;
+    }
+
+    .tableCard tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        border-bottom: 1px solid rgba(232, 180, 217, 0.1);
+        font-size: 14px;
+    }
+
+    .tableCard tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .tableCard tbody td::before {
+        content: attr(data-label);
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #8B7788;
+        flex-shrink: 0;
+        margin-right: 8px;
     }
 }

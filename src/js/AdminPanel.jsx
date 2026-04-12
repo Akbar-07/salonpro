@@ -41,6 +41,10 @@ function MasterCard({ user, isSuperAdmin, isMe, onView, onDelete, onMakeAdmin, o
         <div className={styles.ucStatDiv} />
         <div className={styles.ucStat}><div className={styles.ucStatVal}>{(user.revenue/1_000_000).toFixed(1)}M</div><div className={styles.ucStatLab}>Daromad</div></div>
       </div>
+      <div style={{fontSize:"12px",color:"rgba(201,160,220,0.6)",marginTop:"8px",display:"flex",alignItems:"center",gap:"6px"}}>
+        <i className="fas fa-calendar-plus" style={{fontSize:"11px"}} />
+        <span>Ro'yxatdan o'tgan: <strong style={{color:"rgba(201,160,220,0.9)"}}>{(user.created_at||"").split(" ")[0] || "—"}</strong></span>
+      </div>
       <button className={`${styles.ucBtn} ${styles.ucBtnView}`} onClick={onView}><i className="fas fa-eye" /> Mijozlarni Ko'rish</button>
       <div className={styles.ucActions}>
         {/* Only show delete if: not me, and (superAdmin OR target is not an admin) */}
@@ -423,59 +427,10 @@ export default function AdminPanel() {
                         <i className={`fas fa-search ${styles.searchIcon}`} />
                         <input className={styles.searchInput} placeholder="Qidirish..." value={masterSearch} onChange={(e)=>setMasterSearch(e.target.value)} />
                       </div>
-                      {isSuperAdmin && (
-                        <button onClick={()=>setShowAddForm(true)} style={{
-                          background:"linear-gradient(135deg,#c9a0dc,#a855f7)",color:"#fff",
-                          border:"none",borderRadius:"10px",padding:"10px 16px",cursor:"pointer",
-                          fontSize:"13px",fontWeight:600,display:"flex",alignItems:"center",gap:"6px"
-                        }}>
-                          <i className="fas fa-user-plus" /> Foydalanuvchi qo'shish
-                        </button>
-                      )}
                     </div>
                   </div>
 
-                  {/* Add user form */}
-                  {showAddForm && (
-                    <div style={{
-                      background:"rgba(255,255,255,0.05)",border:"1px solid rgba(201,160,220,0.3)",
-                      borderRadius:"16px",padding:"20px",marginBottom:"20px"
-                    }}>
-                      <h3 style={{color:"#c9a0dc",marginBottom:"16px",fontSize:"15px"}}>
-                        <i className="fas fa-user-plus" /> Yangi foydalanuvchi
-                      </h3>
-                      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"12px"}}>
-                        <input placeholder="Username *" value={newUser.username}
-                          onChange={(e)=>setNewUser({...newUser,username:e.target.value})}
-                          style={{padding:"10px 14px",borderRadius:"10px",border:"1px solid rgba(201,160,220,0.4)",background:"rgba(255,255,255,0.08)",color:"#fff",fontSize:"14px"}} />
-                        <input placeholder="Email" value={newUser.email}
-                          onChange={(e)=>setNewUser({...newUser,email:e.target.value})}
-                          style={{padding:"10px 14px",borderRadius:"10px",border:"1px solid rgba(201,160,220,0.4)",background:"rgba(255,255,255,0.08)",color:"#fff",fontSize:"14px"}} />
-                        <input placeholder="Parol (default: 12345678)" value={newUser.password}
-                          onChange={(e)=>setNewUser({...newUser,password:e.target.value})}
-                          style={{padding:"10px 14px",borderRadius:"10px",border:"1px solid rgba(201,160,220,0.4)",background:"rgba(255,255,255,0.08)",color:"#fff",fontSize:"14px"}} />
-<CustomSelect
-                          value={newUser.role}
-                          onChange={(v)=>setNewUser({...newUser,role:v})}
-                          options={[
-                            {value:"client",label:"Site User"},
-                            {value:"master",label:"Master"},
-                            {value:"admin",label:"Admin"},
-                          ]}
-                        />
-                      </div>
-                      <div style={{display:"flex",gap:"10px",marginTop:"14px"}}>
-                        <button onClick={handleAddUser} disabled={addLoading}
-                          style={{background:"#4caf50",color:"#fff",border:"none",borderRadius:"10px",padding:"10px 20px",cursor:"pointer",fontSize:"13px",fontWeight:600}}>
-                          {addLoading ? <i className="fas fa-spinner fa-spin" /> : <i className="fas fa-check" />} Saqlash
-                        </button>
-                        <button onClick={()=>setShowAddForm(false)}
-                          style={{background:"rgba(255,255,255,0.1)",color:"#fff",border:"none",borderRadius:"10px",padding:"10px 20px",cursor:"pointer",fontSize:"13px"}}>
-                          Bekor qilish
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  {/* Add user form removed */}
 
                   <div className={styles.userCards}>
                     {filteredMasters.map((user)=>(
@@ -486,28 +441,6 @@ export default function AdminPanel() {
                         onRemoveAdmin={()=>handleRemAdmin(user.id,user.username)}
                         onMakeUser={()=>handleMakeUser(user.id,user.username)} />
                     ))}
-                  </div>
-                </div>
-
-                <div className={styles.section}>
-                  <div className={styles.sectionHead}><h2 className={styles.sectionTitle}><i className="fas fa-table" /> Jadval Ko'rinishi</h2></div>
-                  <div className={styles.tableWrap}>
-                    <table className={styles.table}>
-                      <thead><tr><th>#</th><th>Username</th><th>Email</th><th>Rol</th><th>Mijozlar</th><th>Daromad</th><th>Sana</th></tr></thead>
-                      <tbody>
-                        {filteredMasters.map((u,i)=>(
-                          <tr key={u.id}>
-                            <td className={styles.tdNum}>{i+1}</td>
-                            <td><strong>{u.username}</strong></td>
-                            <td className={styles.tdMuted}>{u.email}</td>
-                            <td><RoleBadge user={u} /></td>
-                            <td><strong>{u.clients_count}</strong></td>
-                            <td className={styles.tdGreen}>{fmt(u.revenue)} so'm</td>
-                            <td className={styles.tdMuted}>{(u.created_at||"").split(" ")[0]}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>
@@ -538,24 +471,6 @@ export default function AdminPanel() {
                     {filteredSiteUsers.length===0 && (
                       <p className={styles.noData} style={{gridColumn:"1/-1"}}><i className="fas fa-user-slash" /> Foydalanuvchi topilmadi</p>
                     )}
-                  </div>
-                </div>
-                <div className={styles.section}>
-                  <div className={styles.sectionHead}><h2 className={styles.sectionTitle}><i className="fas fa-table" /> Jadval Ko'rinishi</h2></div>
-                  <div className={styles.tableWrap}>
-                    <table className={styles.table}>
-                      <thead><tr><th>#</th><th>Username</th><th>Email</th><th>Ro'yxatdan o'tgan</th></tr></thead>
-                      <tbody>
-                        {filteredSiteUsers.map((u,i)=>(
-                          <tr key={u.id}>
-                            <td className={styles.tdNum}>{i+1}</td>
-                            <td><strong>{u.username}</strong></td>
-                            <td className={styles.tdMuted}>{u.email}</td>
-                            <td className={styles.tdMuted}>{(u.created_at||"").split(" ")[0]}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>
