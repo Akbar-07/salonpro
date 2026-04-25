@@ -22,7 +22,7 @@ function RoleBadge({ user }) {
   return <span className={`${styles.badge} ${styles.badgeUser}`}><i className="fas fa-user" /> Master</span>;
 }
 
-function MasterCard({ user, isSuperAdmin, isMe, onView, onDelete, onMakeAdmin, onRemoveAdmin, onMakeUser }) {
+function MasterCard({ user, clientsCount, isSuperAdmin, isMe, onView, onViewBookings, onDelete, onMakeAdmin, onRemoveAdmin, onMakeUser }) {
   return (
     <div className={styles.userCard}>
       <div className={styles.ucHeader}>
@@ -37,15 +37,16 @@ function MasterCard({ user, isSuperAdmin, isMe, onView, onDelete, onMakeAdmin, o
         <RoleBadge user={user} />
       </div>
       <div className={styles.ucStats}>
-        <div className={styles.ucStat}><div className={styles.ucStatVal}>{user.clients_count}</div><div className={styles.ucStatLab}>Mijozlar</div></div>
+        <div className={styles.ucStat}><div className={styles.ucStatVal}>{clientsCount ?? user.clients_count}</div><div className={styles.ucStatLab}>Mijozlar</div></div>
         <div className={styles.ucStatDiv} />
         <div className={styles.ucStat}><div className={styles.ucStatVal}>{(user.revenue/1_000_000).toFixed(1)}M</div><div className={styles.ucStatLab}>Daromad</div></div>
       </div>
-      <div style={{fontSize:"12px",color:"rgba(201,160,220,0.6)",marginTop:"8px",display:"flex",alignItems:"center",gap:"6px"}}>
+      <div style={{fontSize:"12px",color:"rgba(201,160,220,0.6)",marginTop:"8px",marginBottom:"10px",display:"flex",alignItems:"center",gap:"6px"}}>
         <i className="fas fa-calendar-plus" style={{fontSize:"11px"}} />
         <span>Ro'yxatdan o'tgan: <strong style={{color:"rgba(201,160,220,0.9)"}}>{(user.created_at||"").split(" ")[0] || "—"}</strong></span>
       </div>
       <button className={`${styles.ucBtn} ${styles.ucBtnView}`} onClick={onView}><i className="fas fa-eye" /> Mijozlarni Ko'rish</button>
+      <button className={`${styles.ucBtn} ${styles.ucBtnView}`} onClick={onViewBookings} style={{marginTop:"6px",background:"rgba(100,180,255,0.12)",borderColor:"rgba(100,180,255,0.4)",color:"#7ec8f8"}}><i className="fas fa-calendar-check" /> Brondagilarni Ko'rish</button>
       <div className={styles.ucActions}>
         {/* Only show delete if: not me, and (superAdmin OR target is not an admin) */}
         {!isMe && (isSuperAdmin || !user.is_admin) && (
@@ -177,6 +178,7 @@ export default function AdminPanel() {
   const [modalClients, setModalClients] = useState([]);
   const [modalSearch,  setModalSearch]  = useState("");
   const [modalLoading, setModalLoading] = useState(false);
+  const [modalMode,    setModalMode]    = useState("clients"); // "clients" | "bookings"
   const [activeTab,    setActiveTab]    = useState("overview");
   const [notification, setNotification] = useState(null);
   const [drawerOpen,   setDrawerOpen]   = useState(false);
@@ -195,10 +197,29 @@ export default function AdminPanel() {
 
   const notify = (msg, type="success") => { setNotification({msg,type}); setTimeout(()=>setNotification(null),3500); };
 
+  // { masterId: realCount } — price>0 bo'lgan haqiqiy mijozlar soni
+  const [masterClientCounts, setMasterClientCounts] = useState({});
+
   useEffect(() => {
     setLoadingUsers(true);
     Promise.all([fetchUsers(), fetchAdminStats()])
-      .then(([u, s]) => { setUsers(u); setStats(s); })
+      .then(([u, s]) => {
+        setUsers(u);
+        setStats(s);
+        // Har bir master uchun real mijozlar sonini yuklash
+        const masterList = u.filter(x => !x.is_super_admin && x.type === "master");
+        Promise.all(
+          masterList.map(m =>
+            fetchUserClients(m.id)
+              .then(clients => ({ id: m.id, count: (clients || []).filter(cl => (cl.price || 0) > 0).length }))
+              .catch(() => ({ id: m.id, count: 0 }))
+          )
+        ).then(results => {
+          const map = {};
+          results.forEach(r => { map[r.id] = r.count; });
+          setMasterClientCounts(map);
+        });
+      })
       .catch((e) => notify(e.message, "error"))
       .finally(() => setLoadingUsers(false));
   }, []);
@@ -218,10 +239,15 @@ export default function AdminPanel() {
   const filteredMasters   = useMemo(()=>masters.filter((u)=>u.username.toLowerCase().includes(masterSearch.toLowerCase())||u.email.toLowerCase().includes(masterSearch.toLowerCase())),[masters,masterSearch]);
   const filteredSiteUsers = useMemo(()=>siteUsers.filter((u)=>u.username.toLowerCase().includes(siteSearch.toLowerCase())||u.email.toLowerCase().includes(siteSearch.toLowerCase())),[siteUsers,siteSearch]);
 
-  const displayModalClients = useMemo(()=>(modalClients||[]).filter((c)=>
-    c.name.toLowerCase().includes(modalSearch.toLowerCase()) ||
-    (c.service||"").toLowerCase().includes(modalSearch.toLowerCase())
-  ),[modalClients,modalSearch]);
+  const displayModalClients = useMemo(() => {
+    const base = (modalClients || []).filter(c =>
+      modalMode === "bookings" ? (c.is_booking === true || c.price === 0) : (c.is_booking !== true && c.price !== 0)
+    );
+    return base.filter(c =>
+      c.name.toLowerCase().includes(modalSearch.toLowerCase()) ||
+      (c.service || "").toLowerCase().includes(modalSearch.toLowerCase())
+    );
+  }, [modalClients, modalSearch, modalMode]);
 
   // ── ACTIONS ──────────────────────────────────────────────────────────────────
   const handleDelete = async (id, name) => {
@@ -275,8 +301,8 @@ export default function AdminPanel() {
     } catch (e) { notify(e.message, "error"); }
   };
 
-  const openModal = async (user) => {
-    setSelectedUser(user); setModalSearch(""); setModalClients([]); setModalLoading(true);
+  const openModal = async (user, mode = "clients") => {
+    setSelectedUser(user); setModalSearch(""); setModalClients([]); setModalLoading(true); setModalMode(mode);
     try {
       const c = await fetchUserClients(user.id);
       setModalClients(c);
@@ -330,7 +356,7 @@ export default function AdminPanel() {
               <div>
                 <h1 className={styles.pageTitle}>{pageTitles[activeTab]}</h1>
                 <p className={styles.pageSub}>
-                  Bugun: {new Date().toLocaleDateString("uz-UZ",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}
+                  Bugun: {(() => { const d = new Date(); return `${String(d.getDate()).padStart(2,"0")}.${String(d.getMonth()+1).padStart(2,"0")}.${d.getFullYear()}, ${["Yakshanba","Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"][d.getDay()]}`; })()}
                 </p>
               </div>
             </div>
@@ -366,7 +392,7 @@ export default function AdminPanel() {
                   {[
                     { icon:"user-shield",     label:"Jami Masterlar",         value:masters.length,       cls:styles.statPurple, suffix:"" },
                     { icon:"users",           label:"Sayt Foydalanuvchilari", value:siteUsers.length,     cls:styles.statCyan,   suffix:"" },
-                    { icon:"user-friends",    label:"Jami Mijozlar",           value:totalClients,         cls:styles.statBlue,   suffix:"" },
+                    { icon:"user-friends",    label:"Jami Mijozlar",           value:Object.values(masterClientCounts).reduce((a,b)=>a+b,0)||totalClients, cls:styles.statBlue, suffix:"" },
                     { icon:"money-bill-wave", label:"Umumiy Daromad",          value:fmt(totalRevenue),    cls:styles.statGreen,  suffix:" so'm" },
                   ].map((s)=>(
                     <div key={s.label} className={`${styles.statCard} ${s.cls}`}>
@@ -388,7 +414,7 @@ export default function AdminPanel() {
                           <div className={styles.topRole}>{u.email}</div>
                         </div>
                         <div className={styles.topStats}>
-                          <div className={styles.topStat}><span className={styles.topStatVal}>{u.clients_count}</span><span className={styles.topStatLab}>mijoz</span></div>
+                          <div className={styles.topStat}><span className={styles.topStatVal}>{masterClientCounts[u.id] ?? u.clients_count}</span><span className={styles.topStatLab}>mijoz</span></div>
                           <div className={styles.topStat}><span className={styles.topStatVal}>{fmt(u.revenue)}</span><span className={styles.topStatLab}>so'm</span></div>
                         </div>
                       </div>
@@ -434,8 +460,9 @@ export default function AdminPanel() {
 
                   <div className={styles.userCards}>
                     {filteredMasters.map((user)=>(
-                      <MasterCard key={user.id} user={user} isSuperAdmin={isSuperAdmin} isMe={user.id === me?.id}
-                        onView={()=>openModal(user)}
+                      <MasterCard key={user.id} user={user} clientsCount={masterClientCounts[user.id]} isSuperAdmin={isSuperAdmin} isMe={user.id === me?.id}
+                        onView={()=>openModal(user,"clients")}
+                        onViewBookings={()=>openModal(user,"bookings")}
                         onDelete={()=>handleDelete(user.id,user.username)}
                         onMakeAdmin={()=>handleMakeAdmin(user.id,user.username)}
                         onRemoveAdmin={()=>handleRemAdmin(user.id,user.username)}
@@ -533,7 +560,7 @@ export default function AdminPanel() {
                           </div>
                           <div className={styles.userRevNums}>
                             <div className={styles.userRevTotal}>{fmt(u.revenue)} so'm</div>
-                            <div className={styles.userRevRent}>{u.clients_count} ta mijoz</div>
+                            <div className={styles.userRevRent}>{masterClientCounts[u.id] ?? u.clients_count} ta mijoz</div>
                           </div>
                           <div className={styles.userRevPct}>{pct}%</div>
                         </div>
@@ -555,15 +582,15 @@ export default function AdminPanel() {
             <div className={styles.modalHead}>
               <div className={styles.modalAvatar}>{initials(selectedUser.username)}</div>
               <div>
-                <h3 className={styles.modalTitle}>{selectedUser.username}</h3>
+                <h3 className={styles.modalTitle}>{selectedUser.username} — {modalMode==="bookings" ? "Bronlar" : "Mijozlar"}</h3>
                 <p className={styles.modalSub}>{selectedUser.email}</p>
               </div>
               <button className={styles.modalClose} onClick={()=>setSelectedUser(null)}><i className="fas fa-times" /></button>
             </div>
             <div className={styles.modalBody}>
               <div className={styles.modalStats}>
-                <div className={styles.modalStat}><span className={styles.modalStatVal}>{selectedUser.clients_count}</span><label className={styles.modalStatLab}>Mijozlar</label></div>
-                <div className={styles.modalStat}><span className={styles.modalStatVal}>{fmt(selectedUser.revenue)}</span><label className={styles.modalStatLab}>so'm daromad</label></div>
+                <div className={styles.modalStat}><span className={styles.modalStatVal}>{modalMode==="bookings" ? displayModalClients.length : (modalClients||[]).filter(cl=>(cl.price||0)>0).length}</span><label className={styles.modalStatLab}>{modalMode==="bookings" ? "Bronlar" : "Mijozlar"}</label></div>
+                <div className={styles.modalStat}><span className={styles.modalStatVal}>{modalMode==="bookings" ? 0 : fmt(selectedUser.revenue)}</span><label className={styles.modalStatLab}>so'm daromad</label></div>
               </div>
               <div className={`${styles.searchWrap} ${styles.searchWrapFull}`}>
                 <i className={`fas fa-search ${styles.searchIcon}`} />
@@ -576,10 +603,10 @@ export default function AdminPanel() {
               ) : (
                 <div className={styles.tableWrap}>
                   <table className={styles.table}>
-                    <thead><tr><th>#</th><th>Ism</th><th>Xizmat</th><th>Sana</th><th>Vaqt</th><th>Narx</th><th>Masterdan</th><th>Arenda</th></tr></thead>
+                    <thead><tr><th>#</th><th>Ism</th><th>Xizmat</th><th>Sana</th><th>Vaqt</th>{modalMode==="clients"&&<><th>Narx</th><th>Masterdan</th><th>Arenda</th></>}{modalMode==="bookings"&&<th>Holat</th>}</tr></thead>
                     <tbody>
                       {displayModalClients.length === 0 ? (
-                        <tr><td colSpan={8} className={styles.noData}>Mijozlar topilmadi</td></tr>
+                        <tr><td colSpan={8} className={styles.noData}>{modalMode==="bookings"?"Bron topilmadi":"Mijozlar topilmadi"}</td></tr>
                       ) : displayModalClients.map((c,i)=>(
                         <tr key={c.id}>
                           <td className={styles.tdNum}>{i+1}</td>
@@ -587,9 +614,8 @@ export default function AdminPanel() {
                           <td>{c.service}</td>
                           <td className={styles.tdMuted}>{c.date}</td>
                           <td className={styles.tdMuted}>{c.time}</td>
-                          <td className={styles.tdGreen}>{fmt(c.price)} so'm</td>
-                          <td className={styles.tdGreen}>{fmt(c.my_price)} so'm</td>
-                          <td className={styles.tdRed}>{fmt((c.price||0)-(c.my_price||0))} so'm</td>
+                          {modalMode==="clients"&&<><td className={styles.tdGreen}>{fmt(c.price)} so'm</td><td className={styles.tdGreen}>{fmt(c.my_price)} so'm</td><td className={styles.tdRed}>{fmt((c.price||0)-(c.my_price||0))} so'm</td></>}
+                          {modalMode==="bookings"&&<td><span style={{fontSize:"11px",padding:"2px 8px",borderRadius:"6px",background:"rgba(100,180,255,0.15)",color:"#7ec8f8",fontWeight:600}}>Bron</span></td>}
                         </tr>
                       ))}
                     </tbody>
