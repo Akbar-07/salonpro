@@ -229,7 +229,7 @@ function TimeGrid({ allSlots, busySlots, value, onChange, serviceDuration, lang,
       if (b.confirmed === true) return false;
       const bStart = timeToMins(b.time);
       const bEnd = b.end_time ? timeToMins(b.end_time) : (bStart + (b.duration || 60));
-      return slotStart >= bStart && slotStart < bEnd;
+      return slotStart >= bStart && slotStart <= bEnd;
     });
     if (directBooked) return "busy"; // sariq -- haqiqiy bron
 
@@ -272,7 +272,7 @@ function TimeGrid({ allSlots, busySlots, value, onChange, serviceDuration, lang,
           const slotStart = timeToMins(slot);
           const bStart = timeToMins(b.time);
           const bEnd = b.end_time ? timeToMins(b.end_time) : (bStart + (b.duration || 60));
-          return slotStart >= bStart && slotStart < bEnd;
+          return slotStart >= bStart && slotStart <= bEnd;
         }) : null;
 
         return (
@@ -607,7 +607,12 @@ export default function Create_client() {
           {/* Kalendar — DARHOL KO'RINADI, master yuklanishini kutadi */}
           <div className={`${styles.formGroup} ${styles.fullWidth}`}>
             <label><i className="fas fa-calendar-alt"></i>{t.create_date || "Sana"}</label>
-            {mastersLoading ? (
+            {(!name.trim() || !service.trim()) ? (
+              <div style={{ padding: "14px", color: "#8B7788", fontSize: "13px", borderRadius: "12px", border: "2px solid rgba(232,180,217,0.15)", background: "rgba(248,245,255,0.5)" }}>
+                <i className="fas fa-info-circle" style={{ marginRight: "6px", color: "#E8B4D9" }}></i>
+                {lang === "ru" ? "Сначала введите имя и выберите услугу" : "Avval ism va xizmatni tanlang"}
+              </div>
+            ) : mastersLoading ? (
               <div style={{ padding: "14px", color: "#c9a0dc", fontSize: "13px", display: "flex", gap: "8px", alignItems: "center" }}>
                 <i className="fas fa-spinner fa-spin"></i>
                 {lang === "ru" ? "Yuklanmoqda..." : "Yuklanmoqda..."}
@@ -625,7 +630,12 @@ export default function Create_client() {
           {/* Vaqt Grid — sana tanlanganda ko'rinadi */}
           <div className={`${styles.formGroup} ${styles.fullWidth}`}>
             <label><i className="fas fa-clock"></i>{t.create_time || "Vaqt"}</label>
-            {!date ? (
+            {(!name.trim() || !service.trim()) ? (
+              <div style={{ padding: "14px", color: "#8B7788", fontSize: "13px", borderRadius: "12px", border: "2px solid rgba(232,180,217,0.15)", background: "rgba(248,245,255,0.5)" }}>
+                <i className="fas fa-info-circle" style={{ marginRight: "6px", color: "#E8B4D9" }}></i>
+                {lang === "ru" ? "Сначала введите имя и выберите услугу" : "Avval ism va xizmatni tanlang"}
+              </div>
+            ) : !date ? (
               <div style={{ padding: "14px", color: "#8B7788", fontSize: "13px", borderRadius: "12px", border: "2px solid rgba(232,180,217,0.15)", background: "rgba(248,245,255,0.5)" }}>
                 <i className="fas fa-info-circle" style={{ marginRight: "6px", color: "#E8B4D9" }}></i>
                 {lang === "ru" ? "Avval sanani tanlang" : "Avval sanani tanlang"}

@@ -112,7 +112,7 @@ function TimeGrid({ slots, allSlots, busySlots, value, onChange, serviceDuration
       if (b.confirmed === true) return false;
       const bStart = timeToMins(b.time);
       const bEnd   = b.end_time ? timeToMins(b.end_time) : (bStart + (b.duration || 60));
-      return slotMins >= bStart && slotMins < bEnd;
+      return slotMins >= bStart && slotMins <= bEnd;
     });
     if (directBooked) return 'busy'; // sariq -- haqiqiy bron
 
@@ -154,7 +154,7 @@ function TimeGrid({ slots, allSlots, busySlots, value, onChange, serviceDuration
           const slotMins = timeToMins(slot);
           const bStart   = timeToMins(b.time);
           const bEnd     = b.end_time ? timeToMins(b.end_time) : (bStart + (b.duration || 60));
-          return slotMins >= bStart && slotMins < bEnd;
+          return slotMins >= bStart && slotMins <= bEnd;
         }) : null;
 
         return (
@@ -827,16 +827,28 @@ export default function Home() {
             </div>
             <div className={styles.formGroup}>
               <label><i className="fas fa-calendar-alt"></i>{t.home_booking_date_label}</label>
-              <CustomCalendar
-                value={bookingDate}
-                onChange={(v) => { setBookingDate(v); setBookingTime(""); }}
-                workingDays={selectedBookingMaster?.workingDays || []}
-                lang={lang}
-              />
+              {(!bookingName.trim() || !bookingPhone.trim() || !bookingMaster || !bookingService) ? (
+                <div style={{padding:"12px",color:"#8B7788",fontSize:"13px",borderRadius:"10px",border:"1px solid rgba(232,180,217,0.2)",background:"rgba(248,245,255,0.5)"}}>
+                  <i className="fas fa-info-circle" style={{marginRight:"6px",color:"#c9a0dc"}}></i>
+                  {lang==="ru" ? "Сначала заполните имя, телефон, мастера и услугу" : "Avval ism, telefon, master va xizmatni tanlang"}
+                </div>
+              ) : (
+                <CustomCalendar
+                  value={bookingDate}
+                  onChange={(v) => { setBookingDate(v); setBookingTime(""); }}
+                  workingDays={selectedBookingMaster?.workingDays || []}
+                  lang={lang}
+                />
+              )}
             </div>
             <div className={styles.formGroup}>
               <label><i className="fas fa-clock"></i>{t.home_booking_time_label}</label>
-              {loadingSlots ? (
+              {(!bookingName.trim() || !bookingPhone.trim() || !bookingMaster || !bookingService) ? (
+                <div style={{padding:"12px",color:"#8B7788",fontSize:"13px",borderRadius:"10px",border:"1px solid rgba(232,180,217,0.2)",background:"rgba(248,245,255,0.5)"}}>
+                  <i className="fas fa-info-circle" style={{marginRight:"6px",color:"#c9a0dc"}}></i>
+                  {lang==="ru" ? "Сначала заполните имя, телефон, мастера и услугу" : "Avval ism, telefon, master va xizmatni tanlang"}
+                </div>
+              ) : loadingSlots ? (
                 <div style={{padding:"14px",color:"#c9a0dc",fontSize:"13px",display:"flex",gap:"8px",alignItems:"center"}}>
                   <i className="fas fa-spinner fa-spin"></i>
                   {lang==="ru" ? "Загрузка..." : "Vaqtlar yuklanmoqda..."}
@@ -846,7 +858,7 @@ export default function Home() {
                   {!bookingDate || !selectedBookingMaster ? (
                     <div style={{padding:"12px",color:"#8B7788",fontSize:"13px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.08)",background:"rgba(255,255,255,0.02)"}}>
                       <i className="fas fa-info-circle" style={{marginRight:"6px",color:"#c9a0dc"}}></i>
-                      {lang==="ru" ? "Сначала выберите мастера и дату" : "Avval master va sanani tanlang"}
+                      {lang==="ru" ? "Сначала выберите дату" : "Avval sanani tanlang"}
                     </div>
                   ) : (
                     <div>
