@@ -213,7 +213,7 @@ export default function Navbar({ version = "default" }) {
         )}
         {version === "masters" && (
           <div className="sidebar-menu">
-            <div className="sidebar-user-info" style={{display:"flex",alignItems:"center",gap:"12px",padding:"12px 16px",marginBottom:"8px",background:"rgba(232,180,217,0.1)",borderRadius:"12px",border:"1px solid rgba(232,180,217,0.2)"}}>
+            <div className="sidebar-user-info" style={{display:"flex",margin: "0 15px",alignItems:"center",gap:"12px",padding:"12px 16px",marginBottom:"8px",background:"rgba(232,180,217,0.1)",borderRadius:"12px",border:"1px solid rgba(232,180,217,0.2)"}}>
               <NavAvatar user={user} displayName={displayName} size={40} />
               <div>
                 <div style={{fontWeight:700,fontSize:"14px",color:"var(--ink)"}}>{displayName}</div>
